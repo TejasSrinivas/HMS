@@ -7,5 +7,6 @@ public class DisplayOptions {
 		System.out.println("3) ALTER TABLE");
 		System.out.println("4) DROP A TABLE");
 		System.out.println("5) DELETE A RECORD");
+		System.out.println("'exit' to quit");
 	}
 }

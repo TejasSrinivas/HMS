@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.management.relation.Role;
+
 public class AllMethods {
 	
 	Scanner scanner = new Scanner(System.in);
@@ -37,30 +39,23 @@ public class AllMethods {
 		System.out.println("Which table you want to see?");
 		String tableName = scanner.nextLine();
 		String preparedStatement = "select * from ";
-		preparedStatement += tableName;
+		preparedStatement += tableName + " ;";
 		
-		
+		System.out.println(preparedStatement);
 		ResultSet resultSet = statement.executeQuery(preparedStatement);
 		
 		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 		int columnCount = resultSetMetaData.getColumnCount();
 		
-		//Column name illa 
-		System.out.println(resultSetMetaData.toString());
 		while(resultSet.next()){
-			
 			for(int i = 1; i < columnCount + 1; i++){
-				if(i == 1){
-					System.out.print(resultSet.getString(i) + "\t");
-				}else if(i == 2){
-					System.out.print( resultSet.getString(i) + "\t\t\t");
-				}else{
-					System.out.print(resultSet.getString(i));
-				}
+					System.out.print(resultSetMetaData.getColumnName(i) + "==>" +resultSet.getString(i) );
+					System.out.println();
 			}
+			System.out.println("-------------------------");
 			System.out.println();
 		}
-		
+		System.out.println("All records fetched");
 		
 	}
 	
@@ -140,6 +135,7 @@ public class AllMethods {
 		System.out.println("Table name?");
 		String tableName = scanner.nextLine();
 		statement.executeUpdate("drop table " + tableName);
+		System.out.println("Table " + tableName + " dropped");
 	}
 	
 	public void insertRecord(Connection connection,Statement statement) throws SQLException{
@@ -223,8 +219,8 @@ public class AllMethods {
 			statement.executeUpdate(preparedStatement);
 			
 		}
-		System.out.println(preparedStatement);
-		statement.executeUpdate(preparedStatement);
+//		System.out.println(preparedStatement);
+//		statement.executeUpdate(preparedStatement);
 		System.out.println("Table " + tableName + " updated");
 		
 	}

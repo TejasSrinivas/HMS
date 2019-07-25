@@ -33,32 +33,31 @@ public class MainApp {
 		
 		DisplayOptions display = new DisplayOptions();
 		display.displayOptions();
-		
 		Scanner scanner = new Scanner(System.in);
-		String str = scanner.nextLine();
-		double input = Double.parseDouble(str);
-		
-		if(input == Math.round(input)){
-			System.out.println("Chosen Input: " + Math.round(input));
-		}else{
-			System.out.println("Chosen Input: " + input);
+		while(true){
+			
+			String str = scanner.nextLine();
+			System.out.println("You have chosen option :" + str);
+			if(str.equalsIgnoreCase("exit")){
+				break;
+			}else{
+				app.processRequest(str, connection, statement, methods);
+			}
 		}
-		
-		app.processRequest(input, connection, statement, methods);
 		scanner.close();
 	}
 	
-	public void processRequest(double request, Connection connection, Statement statement, AllMethods methods) throws SQLException{
+	public void processRequest(String request, Connection connection, Statement statement, AllMethods methods) throws SQLException{
 		
-		if(request == 1.0){
+		if(request.equals("1")){
 			methods.insertRecord(connection,statement);
-		}else if(request == 2.0){
+		}else if(request.equals("2")){
 			methods.viewTable(connection,statement);
-		}else if(request == 3.0){
+		}else if(request.equals("3")){
 			methods.alterTable(connection, statement);
-		}else if(request == 4.0){
+		}else if(request.equals("4")){
 			methods.dropTable(connection, statement);
-		}else if(request == 5.0){
+		}else if(request.equals("5")){
 			methods.deleteRecord(connection, statement);
 		}
 	}
